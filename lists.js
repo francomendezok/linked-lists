@@ -114,6 +114,59 @@ class LinkedList {
         string += `( ${node.data} ) -> null `;
         return string;
     }
+
+    insertAt(value, index) {
+        let node = new LinkedList(value);
+        let prev = null;
+        let currentIndex = 0;
+        let current = this;
+
+        if (index === 0) {
+            let head = new LinkedList(value);
+            head.next = this;
+            return head;
+        }
+
+
+
+        while (current) {
+            if (currentIndex === index) break;
+            prev = current;
+            current = current.next;
+            currentIndex++;
+        }
+
+        prev.next = node;
+        node.next = current;
+
+        return this;
+    }
+
+    removeAt(index) {
+        let prev = null;
+        let currentIndex = 0;
+        let current = this;
+        
+        if (index === 0) {
+            let next = current.next;
+            next.next = current.next.next;
+            current.next = null;
+           return next;
+        }
+
+
+
+        while (current) {
+            if (currentIndex === index) break;
+            prev = current;
+            current = current.next;
+            currentIndex++;
+        }
+
+        prev.next = current.next;
+
+        return this;
+    }
 }
 
 let myList = new LinkedList(1);
@@ -124,5 +177,8 @@ let size = myList.size();
 let head = myList.head();
 let tail = myList.tail();
 let at = myList.at(0);
-console.log(myList.toString());
+myList = myList.insertAt(45, 0);
+myList = myList.removeAt(1);
+
+console.log(myList);
 
